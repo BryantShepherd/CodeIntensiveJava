@@ -1,9 +1,6 @@
 package game.player;
 
-import game.BoxCollider;
-import game.Enemy;
-import game.GameObject;
-import game.Renderer;
+import game.*;
 
 public class PlayerBullet extends GameObject {
     public PlayerBullet() {
@@ -11,7 +8,7 @@ public class PlayerBullet extends GameObject {
         renderer = new Renderer("assets/images/player-bullets/a", 3);
         position.set(0, 0);
         velocity.set(0, -5);
-        hitBox = new BoxCollider(this, 24, 24);
+        hitBox = new BoxCollider(this, 24 - 8, 24 - 8);
     }
 
     @Override
@@ -21,10 +18,15 @@ public class PlayerBullet extends GameObject {
     }
 
     private void checkEnemies() {
-        Enemy enemy = GameObject.findEnemyIntersect(this);
-        if (enemy != null) {
+//        Enemy enemy = GameObject.findEnemyIntersect(this);
+        Enemy enemy = GameObject.findIntersects(Enemy.class, this);
+        if (enemy != null && enemyInBound(enemy)) {
             this.deactivate();
             enemy.deactivate();
         }
+    }
+
+    private boolean enemyInBound(Enemy enemy) {
+        return enemy.position.x > -Settings.ENEMY_WIDTH * enemy.anchor.x && enemy.position.y > -Settings.ENEMY_HEIGHT * enemy.anchor.y;
     }
 }

@@ -12,14 +12,42 @@ import java.lang.Math;
 
 public class Player extends GameObject {
     public int frameCount;
-
+    public int hp;
+    public boolean immune;
     public Player() {
-        position.set(200, 200);
+        position.set(100, 100);
         //image = SpriteUtils.loadImage("assets/images/players/straight/4.png");
         renderer = new Renderer("assets/images/players/straight");
+        hitBox = new BoxCollider(this, Settings.PLAYER_WIDTH - 12, Settings.PLAYER_HEIGHT - 8);
+        hp = 3;
+        immune = false;
         //frameCount = 0;
     }
 
+    public void takeDamage(int damage) {
+        if (immune) {
+            return;
+        }
+        hp -= damage;
+        if (hp <= 0) {
+            hp = 0;
+            this.deactivate();
+        }
+        else {
+            immune = true; //immune after getting hit
+        }
+    }
+
+    int immuneCount = 0;
+    private void checkImmune() {
+        if(immune) {
+            immuneCount++;
+            if (immuneCount > 120) {
+                immune = false;
+                immuneCount = 0;
+            }
+        }
+    }
 //    public Player(double _x, double _y) {
 //        position = new Vector2D(_x, _y);
 //        image = SpriteUtils.loadImage("assets/images/players/straight/4.png");
@@ -43,8 +71,8 @@ public class Player extends GameObject {
     }
 
     public void limitPosition() {
-        position.x = Mathx.clamp(position.x, 0, 384 - 32);
-        position.y = Mathx.clamp(position.y, 0, Settings.GAME_HEIGHT - 48); //don't use number, use variable
+        position.x = Mathx.clamp(position.x, 0 + 32/2, 384 - 32/2);
+        position.y = Mathx.clamp(position.y, 0 + 48/2, Settings.GAME_HEIGHT - 48/2); //don't use number, use variable
     }
 
     public void fire() {
@@ -75,5 +103,20 @@ public class Player extends GameObject {
         this.limitPosition();
         this.fire();
         this.bulletRun();
+        this.checkImmune();
+    }
+
+    @Override
+    public void render(Graphics g) {
+        if (immune) {
+            if (immuneCount % 5 == 0) {
+                super.render(g);
+            }
+        }
+        else {
+            super.render(g);
+
+        }
+
     }
 }

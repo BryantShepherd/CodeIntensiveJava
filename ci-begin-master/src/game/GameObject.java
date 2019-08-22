@@ -34,6 +34,17 @@ public class GameObject {
         }
         return null;
     }
+    //Generic (Java) = Templates(C++)
+    //cls ~ Player.class | Enemy.class | PlayerBullet.class
+    public static <E> E findIntersects(Class <E> cls, GameObject source) {
+        for (int i = 0; i < listObjects.size(); i++) {
+            GameObject object = listObjects.get(i);
+            if (object.active && cls.isAssignableFrom(object.getClass()) && object.hitBox != null && object.hitBox.intersect(source.hitBox)) {
+                return (E) object;
+            }
+        }
+        return null;
+    }
 
     //Object definition
     public Vector2D position;
@@ -41,6 +52,7 @@ public class GameObject {
     public Vector2D velocity;
     public boolean active;
     public BoxCollider hitBox = null;
+    public Vector2D anchor;
 
     public GameObject() {
         listObjects.add(this);
@@ -48,6 +60,7 @@ public class GameObject {
         position = new Vector2D();
         velocity = new Vector2D();
         active = true;
+        anchor = new Vector2D(0.5, 0.5);
     }
 
     public void render(Graphics g) {

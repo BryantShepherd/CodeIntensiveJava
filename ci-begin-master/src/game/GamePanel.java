@@ -10,12 +10,12 @@ public class GamePanel extends JPanel {
     Background background;
     Player player;
     PlayerBullet bullet;
-    Enemy enemy;
+
     //
     public GamePanel() {
         background = new Background();
         player = new Player();
-        enemy = new Enemy();
+        new EnemySummoner();
         //bullet = new PlayerBullet();
     }
 

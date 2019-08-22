@@ -8,11 +8,13 @@ public class BoxCollider {
     public BoxCollider() {
         this(-1, 1, 1, 1);
     }
+    public Vector2D anchor;
 
     public BoxCollider(double x, double y, double width, double height) {
         position = new Vector2D(x, y);
         this.width = width;
         this.height = height;
+        anchor = new Vector2D(0.5, 0.5);
     }
 
     public BoxCollider(GameObject object, int width, int height) {
@@ -20,10 +22,11 @@ public class BoxCollider {
         position = object.position;
         this.width = width;
         this.height = height;
+        this.anchor = object.anchor;
     }
 
     public double top() {
-        return position.y;
+        return position.y - anchor.y * height; //render object from the center
     }
 
     public double bottom() {
@@ -31,7 +34,7 @@ public class BoxCollider {
     }
 
     public double left() {
-        return position.x;
+        return position.x - anchor.x * width;
     }
 
     public double right() {
