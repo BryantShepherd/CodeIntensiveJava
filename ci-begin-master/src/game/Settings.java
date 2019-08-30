@@ -10,9 +10,9 @@ public class Settings {
     public static final int PLAYER_WIDTH = 32;
     public static final int PLAYER_HEIGHT = 48;
 
-    public static final int PLAYER_BULLET_WIDTH = 10;
-    public static final int PLAYER_BULLET_HEIGHT = 10;
+    public static final int PLAYER_BULLET_WIDTH = 24;
+    public static final int PLAYER_BULLET_HEIGHT = 24;
 
-    public static final int ENEMY_WIDTH = 10;
-    public static final int ENEMY_HEIGHT = 10;
+    public static final int ENEMY_WIDTH = 34;
+    public static final int ENEMY_HEIGHT = 50;
 }
