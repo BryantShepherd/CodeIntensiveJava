@@ -1,6 +1,8 @@
 package game.player;
 
 import game.*;
+import game.screen.GameOverScreen;
+import game.screen.ScreenManager;
 import tklibs.Mathx;
 import tklibs.SpriteUtils;
 
@@ -118,5 +120,11 @@ public class Player extends GameObject {
 
         }
 
+    }
+
+    @Override
+    public void deactivate() {
+        super.deactivate();
+        ScreenManager.signNewScreen(new GameOverScreen());
     }
 }
