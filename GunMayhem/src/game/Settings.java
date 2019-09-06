@@ -1,6 +1,6 @@
-//package game;
-//
-//public class Settings {
+package game;
+
+public class Settings {
 //    public static final int GAME_WIDTH = 800;
 //    public static final int GAME_HEIGHT = 600;
 //
@@ -15,4 +15,5 @@
 //
 //    public static final int ENEMY_WIDTH = 34;
 //    public static final int ENEMY_HEIGHT = 50;
-//}
+    public static final double GRAVITY = 2.5;
+}

@@ -8,10 +8,11 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
     Player1 player1;
-
+    Background background;
     //
     public GamePanel() {
         player1 = new Player1();
+        background = new Background();
     }
 
     @Override
@@ -22,26 +23,22 @@ public class GamePanel extends JPanel {
         g.fillRect(0,0,900, 600);
 
         //Render assets
-        //GameObject.renderAll(g);
+        background.render(g);
+        player1.render(g);
 
-//        if (ScreenManager.currentScreen instanceof PlayScreen) {
-//            g.setColor(Color.BLACK);
-//            g.fillRect(384, 0, 416, Settings.GAME_HEIGHT); //use constant or variables
-//        }
     }
 
     public void gameLoop() { //Main Loop
         long lastTime = 0;
         while(true) {
-            long currentTime = System.currentTimeMillis();
-            if (currentTime - lastTime >= 1000/60) { //Cap Framerate at 60
+            long currentTime = System.nanoTime();
+            if (currentTime - lastTime >= 1000000000/60) { //Cap Framerate at 60
                 //Render
                 repaint(); //call to paint()
                 player1.move();
-
+                player1.run();
                 lastTime = currentTime;
             }
-            //long currentTime = System.nanoTime();
         }
     }
 
