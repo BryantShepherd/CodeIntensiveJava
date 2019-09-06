@@ -2,6 +2,9 @@ package game;
 
 import game.player.Player;
 import game.player.PlayerBullet;
+import game.screen.PlayScreen;
+import game.screen.ScreenManager;
+import game.screen.WelcomeScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,18 +16,16 @@ public class GamePanel extends JPanel {
 
     //
     public GamePanel() {
-        background = new Background();
-        player = new Player();
-        new EnemySummoner();
+//        background = new Background();
+//        player = new Player();
+//        new EnemySummoner();
+        ScreenManager.signNewScreen(new WelcomeScreen());
         //bullet = new PlayerBullet();
     }
 
     @Override
     public void paint(Graphics g) {
         //System.out.println("paint");
-//        g.setColor(Color.RED);
-//        g.drawRect(100, 100, 100, 100);
-//        g.fillRect(200,200,300,300);
         //Clear canvas
         g.setColor(Color.WHITE);
         g.fillRect(0,0,Settings.GAME_WIDTH, Settings.GAME_HEIGHT);
@@ -32,8 +33,10 @@ public class GamePanel extends JPanel {
         //Render assets
         GameObject.renderAll(g);
 
-        g.setColor(Color.BLACK);
-        g.fillRect(384, 0, 416, Settings.GAME_HEIGHT); //use constant or variables
+        if (ScreenManager.currentScreen instanceof PlayScreen) {
+            g.setColor(Color.BLACK);
+            g.fillRect(384, 0, 416, Settings.GAME_HEIGHT); //use constant or variables
+        }
     }
 
     public void gameLoop() { //Main Loop

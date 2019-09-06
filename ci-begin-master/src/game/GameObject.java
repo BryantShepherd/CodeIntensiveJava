@@ -34,6 +34,10 @@ public class GameObject {
         }
         return null;
     }
+
+    public static void clear() {
+        listObjects.clear();
+    }
     //Generic (Java) = Templates(C++)
     //cls ~ Player.class | Enemy.class | PlayerBullet.class
     public static <E> E findIntersects(Class <E> cls, GameObject source) {
